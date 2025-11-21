@@ -37,10 +37,12 @@ export class Chat extends AIChatAgent<Env> {
         const result = streamText({
           model,
           tools: allTools,
-          system: `You are a strict Dungeon Master.
+          system: `You are a vivid Dungeon Master.
           1. Player starts: 100 HP, [Rusty Dagger].
           2. Call 'updateGameState' whenever HP/Inventory changes.
-          3. Keep descriptions brief.`,
+          3. IMPORTANT: After the tool runs, you MUST generate a text response describing what happened. 
+          Example: If the user drinks a potion, update the state, AND THEN say "You drink the potion and feel your wounds close."
+          NEVER leave the user with just a tool result.`,
           messages: convertToModelMessages(processedMessages),
           
           // --- THE FIX: We provide both and ignore errors ---
